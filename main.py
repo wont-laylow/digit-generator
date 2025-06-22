@@ -44,7 +44,8 @@ if st.button("Generate 5 Images"):
     labels = torch.tensor([digit] * 5)
 
     # Add small noise to label embedding
-    emb = G.label_emb(labels) + 0.05 * torch.randn_like(G.label_emb(labels))
+    label_noise = torch.randn_like(G.label_emb(labels)) * 0.2
+    emb = G.label_emb(labels) + label_noise
     x = torch.cat([z, emb], dim=1)
 
     with torch.no_grad():
